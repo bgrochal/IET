@@ -1,5 +1,5 @@
 ﻿# Process manager
-This repository contains simple application which can be used as a process manager with GUI for UNIX-systems. Application enables: listing processes, killing them and adding own add-ons written in C/C++. Technology stack: JavaScript, jQuery with jQuery UI, NodeJS, HTML.
+This repository contains simple application which can be used as a process manager with GUI for UNIX-systems written within the "JavaScript programming" classes held at AGH UST. Application enables: listing processes, killing them and adding own add-ons written in C/C++. Technology stack: JavaScript, jQuery with jQuery UI, NodeJS, HTML.
 
 ## Installation and usage
 1. Open your command line prompt.  
