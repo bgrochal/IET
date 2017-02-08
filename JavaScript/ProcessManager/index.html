@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<title> Process Manager. </title>
+		
+		<!-- jQuery UI -->
+		<link rel="stylesheet" href="jQuery/jquery-ui.min.css">
+		<script src="jQuery/external/jquery/jquery.js"></script>
+		<script src="jQuery/jquery-ui.min.js"></script>
+
+		<!-- DataTables Widget -->
+		<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+
+		<!-- jqTree -->
+		<script src="jqTree/tree.jquery.js"></script>
+		<link rel="stylesheet" href="jqTree/jqtree.css">
+
+		<!-- Handling events -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var updateClicked = false;
+				setInterval(function(){
+					listingRequest();
+				}, 120000);
+
+				$("#kill").attr("disabled", "disabled");
+
+
+				$("#update").on("click", function() {
+					listingRequest();
+				});
+
+
+				$("#procID").keyup(function() {
+					var pid = $("#procID").val();
+
+					if($.isNumeric(pid) && Math.floor(pid) == pid &&pid >= 0) {
+						$.ajax({
+							url: "http://localhost:8080/uid",
+							type: "GET",
+							data: {pid: pid},
+							dataType: "json",
+							success: function(json) {
+								if(json.match == 1)
+									$("#kill").removeAttr("disabled");
+								else
+									$("#kill").attr("disabled", "disabled");
+
+							},
+							error: function() {
+								console.log("Killing process. Failure.");
+								console.log(error);
+							}
+						});
+					}
+				});
+
+
+				$("#kill").on("click", function() {
+					var pid = $("#procID").val();
+
+					$.ajax({
+						url: "http://localhost:8080/killing",
+						type: "GET",
+						data: {pid: pid},
+						dataType: "json",
+						success: function(json) {
+							if(json.message == 'killed') {
+								$("#kill_info").append(
+									'<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span><strong>Process killed!</strong></p></div>'
+								);
+
+								setTimeout(function(){
+									$("#kill_info").empty();
+								}, 2000);
+							}
+						},
+						error: function() {
+							console.log("Killing process. Failure.");
+							console.log(error);
+						},
+						complete: function(xhr, status) {
+							setTimeout(function(){
+								$("#kill").attr("disabled", "disabled");
+							}, 1000);
+						}
+					});					
+				});
+
+				$("#first").on("click", function() {
+					$.ajax({
+						url: "http://localhost:8080/addon",
+						type: "GET",
+						data: {id: "first"},
+						dataType: "json",
+						success: function(json) {
+							$("#dialog_text").text(json.message);
+							$("#dialog").dialog("open");
+							event.preventDefault();
+						},
+						error: function() {
+							console.log("Executing addon. Failure.");
+							console.log(error);
+						}
+					});
+				});
+
+
+				function listingRequest() {
+					$.ajax({
+						url: "http://localhost:8080/listing",
+						type: "GET",
+						dataType: "json",
+						success: function(json) {
+							/* Drawing (or redrawing) table with processes */
+							if($.fn.dataTable.isDataTable("#table_id"))
+								$('#table_id').DataTable().destroy();
+
+							table = $('#table_id').DataTable({
+								data: json,
+								columns: [
+									{data: 'PID'},
+									{data: 'COMMAND'},
+									{data: 'PPID'},
+									{data: 'USER'}
+								]
+							});
+
+							/* Drawing (or redrawing) process-tree */
+							var child = new Array();
+
+							for(var i=0; i<json.length; i++)
+								child[json[i].PPID] = new Array();
+
+							for(var i=0; i<json.length; i++) {
+								child[json[i].PPID].push({PPID: json[i].PPID, PID: json[i].PID});
+							}
+
+							child = child.filter(function(elem) {
+								return elem != undefined;
+							});
+
+							var data = new Array();
+							for(var i=0; i<child.length; i++) {
+								node = {label: child[i][0].PPID, children: []};
+								for(var j=0; j<child[i].length; j++)
+									node.children.push(child[i][j].PID);
+								data.push(node);
+							}
+
+							if(!updateClicked) {
+								$("#tree").tree({
+									data: data
+								});
+								updateClicked = true;
+							}
+							else
+								$('#tree').tree('loadData', data);
+						},
+						error: function(xhr, status, error) {
+							console.log("Update processes list request. Failure.");
+							console.log(error);
+						}
+					});
+				}
+
+			});
+		</script>
+	</head>
+	<body>
+		<div id="tabs">
+			<ul>
+				<li><a href="#listing">List processes.</a></li>
+				<li><a href="#killing">Kill process.</a></li>
+				<li><a href="#addons">Addons.</a></li>
+			</ul>
+			<div id="listing">
+				<button id="update">Update list.</button>
+				<br/><br/>
+				<table id="table_id" class="display"></table>
+				<div id="tree"></div>
+			</div>
+			<div id="killing">
+				<input id="procID">
+				<button id="kill">Kill process.</button>
+
+				<div class="ui-widget" id="kill_info"></div>
+			</div>
+			<div id="addons">
+				<ul style="width:200px;" id="menu">
+					<li id="first">Hello World.</li>
+					<li id="second">Another addon.</li>
+				</ul>
+
+				<div id="dialog" title="Addon content.">
+					<p id="dialog_text"></p>
+				</div>
+
+			<div>
+		</div>
+
+		<!-- jQuery UI -->
+		<script>
+			$("#tabs").tabs();
+			$("#update").button();
+			$("#kill").button();
+			$("#procID").spinner();
+			$("#menu").menu();
+			$("#dialog").dialog({
+				autoOpen: false,
+				width: 400,
+				buttons: [
+					{
+						text: "Ok",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					},
+					{
+						text: "Cancel",
+						click: function() {
+							$( this ).dialog( "close" );
+					}
+				}
+			]
+		});
+		</script>
+	</body>
+</html>
