@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+		<meta charset="UTF-8">
+		
+		<title>
+			Dean's office. Registration.
+		</title>
+	</head>
+	<body>
+		<header>
+			<h1>
+				Dean's office. Registration.
+			</h1>
+		</header>
+		<main>
+			<div style="text-align: center;">
+				<form action="/student" method="GET" name="registration">
+					<fieldset>
+						<legend>
+							Please, fill the form below.
+						</legend>
+						<p>
+							<label>Insert your first name:</label>
+							<input class="fields" type="text" name="firstname" required>
+						</p>
+						<p>
+							<label>Insert your last name:</label>
+							<input class="fields" type="text" name="lastname" required>
+						</p>
+						<p>
+							<label>Insert your ID Card:</label>
+							<input class="fields" type="number" name="id" required>
+						</p>
+						<p>
+							<label>Select your group:</label>
+							<select class="fields" name = "group">
+							<%	var names = groupNames.split('\n');
+								for(var i=0; i<names.length; i++) {%>	
+									<option><%= names[i] %></option>
+							<%	} %>
+							</select>
+						</p>
+						<p>
+							<input class="buttons" type="submit" value="Sign up.">
+							<input class="buttons" type="reset" value="Reset form.">
+						</p>
+					</fieldset>
+				</form>
+			</div>
+		</main>
+		<footer>
+			<% include footer.ejs %>
+		</footer>
+	</body>
+</html>

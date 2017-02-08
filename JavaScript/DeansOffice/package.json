@@ -1,0 +1,13 @@
+{
+  "name": "Dean's Office.",
+  "version": "1.0.0",
+  "description": "Database System for Dean's office.",
+  "main": "server.js",
+  "author": "Bartłomiej Grochal",
+  "license": "Open source",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "^4.11.1",
+    "sqlite3": "^3.0.4"
+  }
+}

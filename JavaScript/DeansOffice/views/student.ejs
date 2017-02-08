@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+		<meta charset="UTF-8">
+		
+		<title>
+			Dean's office. Student's area.
+		</title>
+	</head>
+	<body>
+		<header>
+			<h1>
+				Dean's office. Student's area.
+			</h1>
+			<h2 class="header">
+				<%= firstName %> <%= lastName %>, ID: <%= IDCard %>.
+			</h2>
+		</header>
+		
+		<main>
+			<div>
+				<h3>
+					Group information.
+				</h3>
+				<p>
+					Group ID name: <%= group %>. <br/>
+					Professor name: <%= professor %>. <br/>
+					Classes start at: <%= startHour %> and end at: <%= endHour %>. 
+				</p>
+			</div>
+			
+			<div>
+				<h3>
+					News.
+				</h3>
+			<%	if(groupNews !== null) { %>
+					<p style="text-indent: 20px;"><%= groupNews %></p>
+			<%	}
+				if(studentNews !== null) {
+			%>
+					<p style="text-indent: 20px;"><%= studentNews %></p>
+			<%	} %>
+			</div>
+			
+		<%	var enrolled = true;
+			for(var i=0; i<list.length; i++) {
+				if((list[i].IDCard === IDCard) && (list[i].Title === null)) {
+					enrolled = false;
+				}
+			}
+			if(((status === "must") && (enrolled)) || (status !== "must")) {
+		%>
+				<div>
+					<h3>
+						Classes and outlines.
+					</h3>
+					<table border="1">
+						<tr>
+							<td>DATE:</td>
+						<%	var classDate;
+							var nearestDayID = 0;
+							var color = false;
+							var currentDate = new Date();
+							for(var i=0; i<classes.length; i++) {
+								classDate = new Date(classes[i].Date + " " + endHour);	
+								if(classDate.getTime() > currentDate.getTime()) { 
+									if(!color) { 
+						%>
+										<td style="background-color: red;">
+									<% 		color = true;
+											nearestDayID = i;
+										} 
+										else { 
+									%>
+											<td>
+									<%	} %>
+												<%= classes[i].Date %>
+											</td>
+								<%	} 
+									else { 
+								%>
+										<td></td>
+								<%	} 
+								}
+								%>
+						</tr>
+						<tr>
+							<td>TOPIC:</td>
+							<%	
+								for(var i=0; i<classes.length; i++) { 
+									classDate = new Date(classes[i].Date + " " + endHour);
+							%>
+									<td>
+										<% 	if(classDate.getTime() < currentDate.getTime()) { %>
+											<a href = "<%= classes[i].Synopsis %>" target="blank">
+										<%	} %>
+												<%= classes[i].Name %>
+										<% 	if(classDate.getTime() < currentDate.getTime()) { %>
+											</a>
+										<%	} %>
+									</td>
+							<%	} %>
+						</tr>
+					</table>
+				</div>
+		
+				<%	var startTime = new Date(classes[nearestDayID].Date + " " + startHour);
+					var endTime = new Date(classes[nearestDayID].Date + " " + endHour);
+					if(currentDate.getTime() >= startTime.getTime() && currentDate.getTime() <= endTime.getTime()) { %>
+						<div class="outline">
+							<% include outlines\current %>
+						</div>
+				<%	} %>
+				
+				<div>
+					<h3>
+						Grades.
+					</h3>
+					<table border="1">
+						<tr>
+							<%	if(url_addr.indexOf("&order") > -1) {
+									url_addr = url_addr.substring(0, url_addr.indexOf("&order"));
+								}
+							%>
+							<td><a href="<%= url_addr %>&order=Type">Type</a></td>
+							<td>Grade</td>
+							<td><a href="<%= url_addr %>&order=Date">Date</a></td>
+						</tr>
+							<%	for(var i=0; i<grades.length; i++) { %>
+									<tr>
+										<td><%= grades[i].Type %></td>
+										<td><%= grades[i].Grade %></td>
+										<td><%= grades[i].Date %></td>
+									</tr>
+							<%	} %>
+					</table>
+				</div>
+		<%	} %>
+		
+			<div>
+				<h3>
+					Participants list.
+				</h3>
+				<table border="1">
+					<tr>
+						<td style="width: 250px;">Full Name</td>
+						<td style="width: 250px;">Lecture topic</td>
+						<td>Lecture date</td>
+					</tr>
+				<%	var listStudentID = 0;
+					for(var i=0; i<list.length; i++) { %>
+						<tr>
+						<%	if(list[i].IDCard === IDCard) {%>
+								<td style="color: red;"><%= list[i].FirstName %> <%= list[i].LastName %></td>
+						<%		listStudentID = i;
+							}
+							else { %>
+								<td><%= list[i].FirstName %> <%= list[i].LastName %></td>
+						<%	}
+							if(list[i].Title !== null) { %>
+									<td><%= list[i].Title %></td>
+						<%	}
+							else { %>
+								<td>Not specified.</td>
+						<%	}
+							if(list[i].Date !== null) { %>
+								<td><%= list[i].Date %></td>
+						<%	}
+							else { %>
+								<td>Not specified.</td>
+						<%	} %>
+						</tr>
+				<%	} %>	
+				</table>
+			</div>
+			
+		<%	if((list[listStudentID].Title === null) && (status !== "unavailable")) { %>
+				<div>
+					<h3>
+						Available topics.
+					</h3>
+					<p style="color: red;">You <%= status %> enroll in one of the topics of lectures below!</p>
+					<ol>
+						<%	for(var i=0; i<lectures.length; i++) { %>
+								<li><%= lectures[i].Title %></li>
+						<%	} %>
+					</ol>
+				</div>
+		<%	} %>
+			<br/><br/>
+			<p style="text-align: center;"><a href="/">Click here to return to the form.</a></p><br/>
+		</main>
+		<footer>
+			<% include footer %>
+		</footer>
+	</body>
+</html>
