@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.embed.swing.SwingNode?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:controller="com.github.bgrochal.geomvisualiser.app.common.controller.AppWindowController"
+          xmlns:fx="http://javafx.com/xml">
+    <SwingNode fx:id="ggPanel" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0" hgap="10" vgap="2">
+        <Button fx:id="nextSnapshot" text="Next snapshot" onAction="#handleNextSnapshotButtonClick"
+                GridPane.rowIndex="0"
+                GridPane.columnIndex="0" prefWidth="150"/>
+        <Button fx:id="previousSnapshot" text="Previous snapshot" onAction="#handlePreviousSnapshotButtonClick"
+                GridPane.rowIndex="1" GridPane.columnIndex="0" prefWidth="150"/>
+        <Button fx:id="showResult" text="Show result" onAction="#handleShowResultButtonClick" GridPane.rowIndex="2"
+                GridPane.columnIndex="0" prefWidth="150"/>
+        <Button fx:id="runSweepAlgorithm" text="Run sweep line algorithm" onAction="#handleRunSweepAlgorithmButtonClick"
+                GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200"/>
+        <Button fx:id="runTriangulationAlgorithm" text="Run triangulation algorithm"
+                onAction="#handleRunTriangulationAlgorithmButtonClick" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                prefWidth="200"/>
+        <Button fx:id="runPointLocationAlgorithm" text="Run point location algorithm"
+                onAction="#handleRunPointLocationAlgorithmButtonClick" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                prefWidth="200"/>
+    </GridPane>
+</GridPane>
