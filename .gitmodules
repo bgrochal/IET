@@ -1,3 +1,6 @@
 [submodule "Concurrency Theory/Active Object"]
 	path = Concurrency Theory/Active Object
 	url = https://github.com/bgrochal/ActiveObject.git
+[submodule "Technologies for IoT"]
+	path = Technologies for IoT
+	url = https://github.com/bgrochal/SmartHospital.git
