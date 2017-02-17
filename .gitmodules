@@ -4,3 +4,6 @@
 [submodule "Technologies for IoT"]
 	path = Technologies for IoT
 	url = https://github.com/bgrochal/SmartHospital.git
+[submodule "Operational Research"]
+	path = Operational Research
+	url = https://github.com/bgrochal/AntColonySudoku.git
