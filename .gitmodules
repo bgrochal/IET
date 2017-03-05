@@ -7,3 +7,6 @@
 [submodule "Operational Research"]
 	path = Operational Research
 	url = https://github.com/bgrochal/AntColonySudoku.git
+[submodule "Technologies for OOP"]
+	path = Technologies for OOP
+	url = https://github.com/Ugon/liczy-grosz.git
