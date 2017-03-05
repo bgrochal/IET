@@ -10,3 +10,6 @@
 [submodule "Technologies for OOP"]
 	path = Technologies for OOP
 	url = https://github.com/Ugon/liczy-grosz.git
+[submodule "Technologies for Internet Applications"]
+	path = Technologies for Internet Applications
+	url = https://github.com/WiktorJ/Simple-Device-Tracking-System.git
