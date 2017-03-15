@@ -21,4 +21,5 @@ public final class SampleRunnable implements Runnable {
 	public String toString() {
 		return toStringHelper(this).toString();
 	}
+
 }

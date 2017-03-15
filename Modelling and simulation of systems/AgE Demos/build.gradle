@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
 	compile 'pl.edu.agh.age:age3-core:0.4-SNAPSHOT'
+	compile 'pl.edu.agh.age:age3-stream-agents:0.4-SNAPSHOT'
 }
 
 def node = {
@@ -28,4 +29,9 @@ def node = {
 task sampleproject(type: JavaExec) {
 	configure node
 	args 'file:src/main/resources/pl/edu/agh/age/sampleproject/spring-sample.xml'
+}
+
+task streamagents(type: JavaExec) {
+	configure node
+	args 'file:src/main/resources/pl/edu/agh/age/streamagents/spring-sample.xml'
 }
