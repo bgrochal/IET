@@ -1,0 +1,31 @@
+group 'pl.edu.agh.age'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+	maven {
+		url "https://repo.age.agh.edu.pl/repository/maven-public/"
+	}
+}
+
+dependencies {
+	compile 'pl.edu.agh.age:age3-core:0.4-SNAPSHOT'
+}
+
+def node = {
+	main = 'pl.edu.agh.age.node.NodeBootstrapper'
+	classpath = sourceSets.main.runtimeClasspath
+	standardOutput = System.out
+	standardInput = System.in
+	jvmArgs '-enableassertions'
+}
+
+// Execute configuration and exit
+task sampleproject(type: JavaExec) {
+	configure node
+	args 'file:src/main/resources/pl/edu/agh/age/sampleproject/spring-sample.xml'
+}
