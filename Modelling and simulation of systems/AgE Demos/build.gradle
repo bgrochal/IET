@@ -40,3 +40,8 @@ task rastrigin(type: JavaExec) {
 	configure node
 	args 'file:src/main/resources/pl/edu/agh/age/function/rastrigin/spring-sample.xml'
 }
+
+task rosenbrock(type: JavaExec) {
+	configure node
+	args 'file:src/main/resources/pl/edu/agh/age/function/rosenbrock/spring-sample.xml'
+}
