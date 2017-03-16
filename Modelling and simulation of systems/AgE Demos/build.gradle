@@ -35,3 +35,8 @@ task streamagents(type: JavaExec) {
 	configure node
 	args 'file:src/main/resources/pl/edu/agh/age/streamagents/spring-sample.xml'
 }
+
+task rastrigin(type: JavaExec) {
+	configure node
+	args 'file:src/main/resources/pl/edu/agh/age/rastrigin/spring-sample.xml'
+}
