@@ -10,3 +10,6 @@
 [submodule "Technologies for Internet Applications"]
 	path = Technologies for Internet Applications
 	url = https://github.com/WiktorJ/Simple-Device-Tracking-System.git
+[submodule "BSc Thesis"]
+	path = BSc Thesis
+	url = https://github.com/misqos/dvb-dist.git
