@@ -13,3 +13,6 @@
 [submodule "BSc Thesis"]
 	path = BSc Thesis
 	url = https://github.com/misqos/dvb-dist.git
+[submodule "Stochastic Computational Algorithms"]
+	path = Stochastic Computational Algorithms
+	url = https://github.com/bgrochal/GeneticEdgeDetector.git
