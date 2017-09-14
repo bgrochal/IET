@@ -19,3 +19,6 @@
 [submodule "Component-Oriented Techniques"]
 	path = Component-Oriented Techniques
 	url = https://github.com/bgrochal/TrueSocialPlatform.git
+[submodule "Implementation Environments of Web Services"]
+	path = Implementation Environments of Web Services
+	url = https://github.com/Ugon/kubernetes-spark.git
