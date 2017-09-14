@@ -16,3 +16,6 @@
 [submodule "Stochastic Computational Algorithms"]
 	path = Stochastic Computational Algorithms
 	url = https://github.com/bgrochal/GeneticEdgeDetector.git
+[submodule "Component-Oriented Techniques"]
+	path = Component-Oriented Techniques
+	url = https://github.com/bgrochal/TrueSocialPlatform.git
