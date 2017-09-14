@@ -1,14 +1,14 @@
-[submodule "Technologies for IoT"]
-	path = Technologies for IoT
+[submodule "IoT Technologies"]
+	path = IoT Technologies
 	url = https://github.com/bgrochal/SmartHospital.git
 [submodule "Operational Research"]
 	path = Operational Research
 	url = https://github.com/bgrochal/AntColonySudoku.git
-[submodule "Technologies for OOP"]
-	path = Technologies for OOP
+[submodule "Object-Oriented Technologies"]
+	path = Object-Oriented Technologies
 	url = https://github.com/Ugon/liczy-grosz.git
-[submodule "Technologies for Internet Applications"]
-	path = Technologies for Internet Applications
+[submodule "Internet Applications Technologies"]
+	path = Internet Applications Technologies
 	url = https://github.com/WiktorJ/Simple-Device-Tracking-System.git
 [submodule "BSc Thesis"]
 	path = BSc Thesis
