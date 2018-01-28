@@ -25,3 +25,9 @@
 [submodule "Graph Grammars"]
 	path = Graph Grammars
 	url = https://github.com/ppedrycz/meshgenerator.git
+[submodule "Data Mining"]
+	path = Data Mining
+	url = https://github.com/bgrochal/NNQuantization.git
+[submodule "Distributed Systems Engineering"]
+	path = Distributed Systems Engineering
+	url = https://github.com/device-tracking-system/application-deployment
